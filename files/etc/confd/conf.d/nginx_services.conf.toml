@@ -1,0 +1,8 @@
+[template]
+src = "nginx_services.conf.tmpl"
+dest = "/etc/nginx/sites-available/nginx_services.conf"
+uid = 0
+gid = 0
+mode = "0644"
+keys = [  "/hosts", "/services", "/config" ]
+reload_cmd = "nginx -T > /tmp/nginx_services_ready.conf && systemctl reload nginx"

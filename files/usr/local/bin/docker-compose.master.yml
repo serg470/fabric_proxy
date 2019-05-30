@@ -1,0 +1,6 @@
+version: '2.1'
+
+services:
+  db:
+    volumes:
+      - /mirror/master_db:/var/lib/postgresql/data

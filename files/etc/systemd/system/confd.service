@@ -1,0 +1,14 @@
+[Unit]
+Description=Confd is a lightweight configuration management tool
+Documentation=https://github.com/kelseyhightower/confd
+After=network.target docker.service
+Before=supervisord.service
+
+[Service]
+ExecStart=/usr/local/bin/confd.sh
+KillMode=process
+Restart=on-failure
+RestartSec=50s
+
+[Install]
+WantedBy=multi-user.target

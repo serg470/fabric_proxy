@@ -1,0 +1,9 @@
+[template]
+src = "confd_services.conf.tmpl"
+dest = "/etc/supervisor/conf.d/services.conf"
+uid = 0
+gid = 0
+mode = "0644"
+keys = [  "/hosts", "/services" ]
+reload_cmd = "/usr/local/bin/supervisorctl update"
+

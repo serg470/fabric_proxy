@@ -1,0 +1,10 @@
+{
+  "encrypt": "${KEY}",
+  "leave_on_terminate": true,
+  "server": true,
+  "enable_debug":false,
+  "retry_join": [ "i01", "a04", "a05"],
+  "ports": {
+    "serf_wan": -1
+  }
+}

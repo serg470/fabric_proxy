@@ -1,0 +1,39 @@
+version: '2.1'
+
+services:
+  db:
+    container_name: db_$CI_COMMIT_REF_NAME
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=oauth
+      - POSTGRES_PASSWORD=oauth
+      - POSTGRES_DB=oauth
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    container_name: backend_$CI_COMMIT_REF_NAME
+    image: $DOCKER_REG/backend:$BACKEND_TAG
+    ports:
+      - "8080"
+    depends_on:
+      wallet-api:
+        condition: service_started
+      db:
+        condition: service_healthy
+
+  front:
+    container_name: frontend_$CI_COMMIT_REF_NAME
+    image: $DOCKER_REG/frontend:$FRONTEND_TAG
+    depends_on:
+      app:
+        condition: service_started
+    ports:
+      - "80"
+
+  wallet-api:
+    container_name: wallet_$CI_COMMIT_REF_NAME
+    image: $DOCKER_REG/wallet-api:current

@@ -1,0 +1,4 @@
+standby_mode = 'on'
+primary_conninfo = 'host=master port=5432 user=replica password=PWD  application_name=pg-slave'
+restore_command = 'cp /var/lib/postgresql/data/archive/%f %p'
+trigger_file = '/var/lib/postgresql/data/postgresql.trigger.5432'
