@@ -20,7 +20,7 @@ def deploy():
     sudo("apt-get -qy install docker-ce")
 
     # Docker-compose
-    compose_version = sudo("curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d "\"" -f4")
+    compose_version = sudo("curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d '\"' -f4")
     sudo('curl -L "https://github.com/docker/compose/releases/download/%s/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose' % compose_version)
     sudo("chmod +x /usr/local/bin/docker-compose")
 
