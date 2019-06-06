@@ -1,12 +1,16 @@
 from lib.files import *
 from lib.docker import *
 
+ELK_VERSION = "7.0.1"
+
 @task()
 def deploy():
     '''
     Deploy ELK
     :return:
     '''
-    sudo("git clone https://github.com/deviantony/docker-elk /opt/elk/")
-    sudo("cd /elk/cd/")
-    sudo("docker-compose up -d")
+    if exists('/opt/elk/', use_sudo=True):
+        sudo("rm -rf /opt/elk/")
+    sudo("git clone https://github.com/serg470/elk.git /opt/elk/")
+    sudo("export ELK_VERSION=7.0.1")
+    sudo("docker-compose -f /opt/elk/docker-compose.yml up -d")
