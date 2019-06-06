@@ -1,9 +1,6 @@
 from lib.files import *
 from lib.services import *
 
-from partition import open_secret
-
-
 @task
 def deploy():
     '''
@@ -12,7 +9,7 @@ def deploy():
     '''
     sudo("apt-get -qy update && apt-get -qy upgrade")
     # System tools
-    sudo("apt-get -qy install git nano openvpn unzip ntp gnupg lsof mc iputils-ping")
+    sudo("apt-get -qy install git nano openvpn unzip ntp lsof mc net-tools")
     # Apt utilities
     sudo("apt-get -qy install apt-transport-https ca-certificates curl software-properties-common")
     # Docker
@@ -23,13 +20,12 @@ def deploy():
     sudo("apt-get -qy install docker-ce")
 
     # Docker-compose
-    compose_version = sudo("curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d'\"' -f4")
+    compose_version = sudo("curl -s https://api.github.com/repos/docker/compose/releases/latest | grep 'tag_name' | cut -d "\"" -f4")
     sudo('curl -L "https://github.com/docker/compose/releases/download/%s/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose' % compose_version)
     sudo("chmod +x /usr/local/bin/docker-compose")
 
     # Python packages
     sudo("apt-get -qy install python-setuptools python-pip python-dev software-properties-common")
-    sudo("pip2 install -U pip supervisor")
 
 
 @task
@@ -44,12 +40,6 @@ def configure():
     # Timezone
     sudo("rm /etc/localtime && ln -s /usr/share/zoneinfo/UTC /etc/localtime")
     sudo("dpkg-reconfigure -f noninteractive tzdata")
-
-    # Supervisor
-    sudo("mkdir -p /etc/supervisor/conf.d")
-    put_file("etc", "supervisor", "supervisord.conf")
-    put_file("etc", "systemd", "system", "supervisord.service")
-    install_service("supervisord")
 
     # Docker
     install_service("docker")
@@ -84,7 +74,6 @@ def start_up():
     Use boot_sequence for application layer
     :return:
     '''
-    open_secret()
     sudo("systemctl start docker")
     sudo("systemctl start supervisord")
     sudo("systemctl start confd")

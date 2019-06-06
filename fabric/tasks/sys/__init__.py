@@ -1,6 +1,6 @@
 from lib.common import *
 
-from . import base,cron,docker,ferm,openvpn,partition,users
+from . import base,cron,docker,openvpn,users
 
 @task
 def kickstart():
@@ -10,7 +10,5 @@ def kickstart():
     """
     users.configure()
     base.install()
-    partition.configure()
-    ferm.install()
 
 
