@@ -14,7 +14,7 @@ SERVERS = [
 
     # Infrastructure
 
-    Server('proxy',
+    Server('extproxy',
            nginx_sites=['default','docker','nexus','gitlab','rancher']),
 ]
 
