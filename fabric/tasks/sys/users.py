@@ -47,7 +47,6 @@ def configure_users():
     run("rm /root/.ssh/authorized_keys", warn_only=True)
     run("apt-get -qy update && apt-get -qy install sudo")
 
-
 def write_authorized_keys(user_name, ak):
     ak_file = StringIO.StringIO(ak)
     ssh_path = posixpath.join("/home", user_name, ".ssh")

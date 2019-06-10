@@ -44,7 +44,6 @@ def configure():
     # Docker
     install_service("docker")
 
-
 @task
 def install():
     '''

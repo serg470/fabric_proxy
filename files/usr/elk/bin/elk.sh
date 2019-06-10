@@ -4,9 +4,9 @@ curl -X POST "http://extproxy.intertransl.com:5601/api/spaces/space" -u elastic:
 
 touch /opt/elk/fb.conf
 echo "output.elasticsearch:" >> /opt/elk/fb.conf
-echo " hosts: ["$HOSTNAME".intertransl.com:9200\"]" >> /opt/elk/fb.conf
+echo " hosts: [\""$HOSTNAME".intertransl.com:9200\"]" >> /opt/elk/fb.conf
 echo " username: \"elastic\"" >> /opt/elk/fb.conf
 echo " password: "$(cat /opt/elk/elastic) >> /opt/elk/fb.conf
 echo "setup.kibana:" >> /opt/elk/fb.conf
-echo " host: "$HOSTNAME".intertransl.com:5601\"" >> /opt/elk/fb.conf
+echo " host: \""$HOSTNAME".intertransl.com:5601\"" >> /opt/elk/fb.conf
 echo " space.id: \"linux-servers\"" >> /opt/elk/fb.conf

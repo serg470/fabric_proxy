@@ -23,8 +23,8 @@ def deploy():
     sudo("sed -i 's/changeme/%s/g' /opt/elk/logstash/pipeline/logstash.conf" % passwd)
     sudo("docker-compose -f /opt/elk/docker-compose.yml restart")
     sudo("sleep 1m")
-#    sudo("curl -X POST 'http://extproxy.intertransl.com:5601/api/spaces/space' -u elastic:%s -H 'kbn-xsrf: true' -H 'Content-Type: application/json' -d\'{"id"}\'" % passwd)
-    put_file("usr", "elk", "bin", "elk.sh", mode=0755)
+    sudo("curl -X POST 'http://extproxy.intertransl.com:5601/api/spaces/space' -u elastic:%s -H 'kbn-xsrf: true' -H 'Content-Type: application/json' -d\'{"id"}\'" % passwd)
+     put_file("usr", "elk", "bin", "elk.sh", mode=0755)
     sudo("/usr/elk/bin/elk.sh")
 
 
