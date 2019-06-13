@@ -11,5 +11,5 @@ def kicksoft():
     :return:
     """
 
-    rkn.deploy()
     elk.deploy()
+    rkn.deploy()
